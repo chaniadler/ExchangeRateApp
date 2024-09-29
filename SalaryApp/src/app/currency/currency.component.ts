@@ -20,7 +20,7 @@ interface ExchangeRate {
 export class CurrencyComponent implements OnInit {
     currencies: Currency[] = [];
     selectedCurrency: string = 'USD';
-    exchangeRates: ExchangeRate[] = [];
+    exchangeRates: ExchangeRate[] = []; 
 
     constructor(private http: HttpClient) {}
 
@@ -29,19 +29,19 @@ export class CurrencyComponent implements OnInit {
     }
 
     fetchCurrencies(): void {
-      this.http.get<Currency[]>('http://localhost:5029/api/currency/currencies').subscribe(data => {
-          this.currencies = data;
-      }, error => {
-          console.error('Error fetching currencies:', error);
-      });
-  }
-  
-  onCurrencyChange(): void {
-      this.http.get<ExchangeRate[]>(`http://localhost:5029/api/currency/exchange-rates?currency=${this.selectedCurrency}`).subscribe(data => {
-          this.exchangeRates = data;
-      }, error => {
-          console.error('Error fetching exchange rates:', error);
-      });
-  }
+        this.http.get<Currency[]>('https://localhost:44360/api/currency/currencies').subscribe(data => {
+            this.currencies = data;
+        }, error => {
+            console.error('Error fetching currencies:', error);
+        });
+    }
+    
+    onCurrencyChange(): void {
+        this.http.get<ExchangeRate[]>(`https://localhost:44360/api/currency/exchange-rates?currency=${this.selectedCurrency}`).subscribe(data => {
+            this.exchangeRates = data;
+        }, error => {
+            console.error('Error fetching exchange rates:', error);
+        });
+    }
   
 }
